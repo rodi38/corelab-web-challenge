@@ -1,11 +1,35 @@
-.Container { 
-    display: grid;
-    gap: 1rem;
-    width: 100%;
-    .content{
+.Container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+
+  padding: 0 10rem;
+  .containerAlign {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    .containerTitle {
+
+      font-family: Inter;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 14.52px;
+      text-align: left;
+      color: #464646;
+      padding: 7px 19px;
+    }
+  
+    .containerContent {
       display: flex;
+      // justify-content: center;
       align-items: center;
+      margin: 0 auto;
       flex-wrap: wrap;
       gap: 1rem;
     }
+  }
+  
+
 }

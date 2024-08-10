@@ -8,11 +8,15 @@ interface IContainer {
 
 const Container = (props: IContainer) => {
 
-  
+
   return (
     <div className={styles.Container}>
-      <h2>{props.title}</h2>
-      <div className={styles.content}>{props.children}</div>
+      <div className={styles.containerAlign}>
+        
+        <p className={styles.containerTitle}>{props.title}</p>
+        <div className={styles.containerContent}>{props.children}</div>
+
+      </div>
 
     </div>
   );
