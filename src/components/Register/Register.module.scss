@@ -1,0 +1,59 @@
+.registerCard {
+
+    flex-direction: column;
+    border: 1px solid #e1e4e8;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    width: 30vw;
+    height: 15vh;
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    margin-top: 50px;
+
+    box-shadow: 1px 1px 3px 0px #00000040;
+
+    .registerCardheader {
+        display: flex;
+        padding: 5px;
+
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+
+    }
+
+    .registerCardTitle {
+        padding: 5px;
+
+        font-weight: bold;
+        color: #333;
+    }
+
+    .registerCardStar {
+        cursor: pointer;
+       
+    }
+
+    .separator {
+
+        height: 1px;
+        width: 100%;
+        background-color: #030a1327;
+        margin: 8px 0;
+    }
+
+    .registerCardContent {
+        width: 100%;
+        border: none;
+        background-color: transparent;
+        color: #6c757d;
+        font-size: 14px;
+        resize: none;
+        outline: none;
+        font-family: inherit;
+        padding: 0;
+    }
+
+   
+}
