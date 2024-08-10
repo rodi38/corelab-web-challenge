@@ -1,0 +1,29 @@
+@import '../../styles/break-points.scss';
+
+.Tasks {
+  display: grid;
+  
+
+  .main {
+    display: grid;
+    gap: 1rem;
+    max-width: 100%;
+    background-color: #F0F2F5;
+    box-sizing: border-box;
+  }
+
+
+  @include tablet {}
+
+  @include laptop {}
+
+  @include desktop {
+    .main {
+      display: grid;
+      padding: 0 10rem;
+
+    }
+  }
+
+  @include desktop-large {}
+}
