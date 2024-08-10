@@ -1,0 +1,11 @@
+.Container { 
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+    .content{
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+}
