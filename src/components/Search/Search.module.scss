@@ -1,0 +1,34 @@
+.SearchBar {
+        display: flex;
+        align-items: center;
+        border: 2px solid #D9D9D9;
+        border-radius: 3px;
+        padding: 4px;
+        width: 33.136rem;
+        height: 28px;
+        
+        
+        .SearchIcon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0 4px;
+        }
+
+        input {
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            padding: 4px;
+            font-size: 14px;
+            border-radius: 4px;
+
+            &::placeholder {
+                color: #aaa;
+            }
+        }
+
+
+    
+
+}
