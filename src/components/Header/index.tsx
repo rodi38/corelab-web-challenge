@@ -3,7 +3,6 @@ import styles from "./Header.module.scss"
 import Search from "../Search";
 import logo from "../../assets/logo.png"
 
-
 const Header = () => {
   const [search, setSearch] = useState<string>("");
 
@@ -12,12 +11,9 @@ const Header = () => {
   }
 
   return (
-    <div className={styles.HeaderPrincipal}>
-
+    <header className={styles.HeaderPrincipal}>
       <div className={styles.Header}>
-        <div>
-
-        </div>
+        
         <div className={styles.headerLogo}>
           <img
             src={logo}
@@ -36,7 +32,7 @@ const Header = () => {
       </div>
       <p className={styles.headerX}>X</p>
 
-    </div>
+    </header>
 
   );
 };
