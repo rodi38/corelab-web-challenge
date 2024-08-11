@@ -16,6 +16,7 @@
   justify-content: space-between;
   background-color:#FFFFFF;
 
+  // overflow: hidden;
   position: relative;
 
   .cardHeader {
@@ -41,7 +42,6 @@
     }
 
     .content {
-      
       font-family: Inter;
       padding-left: 25px;
       padding-right: 25px;
@@ -51,6 +51,8 @@
       text-align: justify;
       text-justify: inter-word;
 
+
+      
     }
 
     .star {

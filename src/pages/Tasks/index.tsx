@@ -73,7 +73,7 @@ const TasksPage = () => {
                 onFavoriteToggle={handleFavoriteToggle}
                 onDelete={()=>handleDelete(item._id)}
               >
-                <p>{item.taskContent}</p>
+                <p className={styles.text} >{item.taskContent}</p>
               </Card>
             ))}
         </Container>
@@ -89,7 +89,7 @@ const TasksPage = () => {
                 onFavoriteToggle={handleFavoriteToggle}
                 onDelete={()=>handleDelete(item._id)}
               >
-                <p>{item.taskContent}</p>
+                <p className={styles.text}>{item.taskContent}</p>
               </Card>
             ))}
         </Container>

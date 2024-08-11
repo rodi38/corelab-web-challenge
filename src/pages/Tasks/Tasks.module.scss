@@ -10,6 +10,12 @@
     gap: 1rem;
     max-width: 100%;
     box-sizing: border-box;
+
+    .text {
+      word-wrap: break-word; 
+      word-break: break-all; 
+      white-space: normal; 
+    }
   }
 
 
