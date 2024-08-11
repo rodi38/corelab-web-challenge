@@ -1,19 +1,24 @@
-import { useState } from "react";
 import styles from "./Header.module.scss"
 import Search from "../Search";
 import logo from "../../assets/logo.png"
+import close from "../../assets/close.png"
 
-const Header = () => {
-  const [search, setSearch] = useState<string>("");
+interface IHeader {
+  value: string;
+  fetchSearchedTasks: (filter: { title: string }) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
+const Header = (props: IHeader) => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    props.onChange(e);
+    props.fetchSearchedTasks({ title: e.target.value });
   }
 
   return (
     <header className={styles.HeaderPrincipal}>
       <div className={styles.Header}>
-        
+
         <div className={styles.headerLogo}>
           <img
             src={logo}
@@ -25,12 +30,16 @@ const Header = () => {
           <p>CoreNotes</p>
         </div>
         <div className={styles.headerSearch}>
-          <Search placeholder="Pesquisar notas" value={search} onChange={handleSearch} />
+          <Search placeholder="Pesquisar notas" value={props.value} onChange={handleSearch} />
         </div>
-
-
       </div>
-      <p className={styles.headerX}>X</p>
+      <div className={styles.headerX}>
+        <img
+          src={close}
+          alt="Descrição da Imagem"
+          className={styles.closeCard}
+        />
+      </div>
 
     </header>
 

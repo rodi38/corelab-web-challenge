@@ -1,19 +1,44 @@
 import { IFilter } from "../types/IFilterTask";
 import { ITaskRequest } from "../types/ITaskRequest";
 import { ITask } from "../types/Task";
+import { queryString } from "./util/util";
 
 const API = "http://localhost:5000";
 
 const endpoint = (path: string): string => API + path;
 
-const get = async (path: string, payload?: IFilter): Promise<any> => {
-  return await fetch(endpoint(path), { method: "get" }).then((res) => res.json());
+const apiGet = async (path: string, payload?:  { [key: string]: string }): Promise<any> => {
+  const query = queryString(payload);
+
+  return await fetch(endpoint(path)+ query, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error(`Error: ${res.status} ${res.statusText}`);
+    }
+    return res.json();
+  });
+
 };
-const post = async (path: string, payload: ITaskRequest): Promise<ITask> => {
-  return await fetch(endpoint(path), { method: "post", body: JSON.stringify(payload) }).then((res) => res.json());
+const apiPost = async (path: string, payload: ITaskRequest): Promise<ITask> => {
+  return await fetch(endpoint(path), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error(`Error: ${res.status} ${res.statusText}`);
+    }
+    return res.json();
+  });
 };
 
-const put = async (path: string, payload: ITaskRequest): Promise<ITaskRequest> => {
+const apiPut = async (path: string, payload: ITaskRequest): Promise<ITaskRequest> => {
   return await fetch(endpoint(path), {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -27,13 +52,31 @@ const put = async (path: string, payload: ITaskRequest): Promise<ITaskRequest> =
   });
 };
 
-export const getTasks = async (payload?: IFilter) => {
-  return get("/tasks", payload);
+
+const apiDelete = async (path: string) => {
+  return await fetch(endpoint(path), {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  }).then((res) => {
+    if (!res.ok) {
+      throw new Error(`Error: ${res.status} ${res.statusText}`);
+    }
+    
+    return res.json();
+  });
+};
+
+export const getTasks = async (payload?:  { [key: string]: string }) => {
+  return apiGet("/tasks", payload);
 };
 
 export const postTask = async (payload: ITaskRequest) => {
-  return post("/tasks", payload);
+  return apiPost("/tasks", payload);
 };
 export const putTask = async (id: string, payload: ITaskRequest) => {
-  return put(`/tasks/${id}`, payload);
+  return apiPut(`/tasks/${id}`, payload);
 };
+
+export const deleteTask = async (id: string) => {
+  return apiDelete(`/tasks/${id}`);
+}

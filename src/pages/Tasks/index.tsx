@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getTasks } from "../../lib/api";
+import { deleteTask, getTasks } from "../../lib/api";
 import { Card, Header } from "../../components";
 import styles from "./Tasks.module.scss";
 import Container from "../../components/Container";
@@ -8,15 +8,19 @@ import Register from "../../components/Register";
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
+  const [search, setSearch] = useState<string>("");
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  }
+
+  
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      const payload = await getTasks();
-      setTasks(payload);
-    };
+    
+    search ? fetchTasks({title: search}) : fetchTasks();
 
-    fetchTasks();
-  }, []);
+  }, [search]);
 
   const handleFavoriteToggle = (id: string, newFavorite: boolean) => {
     setTasks((prevTasks) =>
@@ -26,12 +30,37 @@ const TasksPage = () => {
     );
   };
 
+  const fetchTasks = async (filter?: {title: string}) => {
+    try {
+      const payload = await getTasks(filter);
+
+      console.log(payload);
+      
+      setTasks(payload);
+    } catch (error) {
+      console.error("Erro ao buscar tarefas:", error);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      
+      const updatedTasks = tasks.filter((item) => item._id !== id);
+      setTasks(updatedTasks);
+      await deleteTask(id)
+
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
 
   return (
+
     <div className={styles.Tasks}>
-      <Header />
+      <Header fetchSearchedTasks={fetchTasks} value={search} onChange={handleSearch}/>
       <main className={styles.main}>
-        <Register />
+        <Register fetchTasks={fetchTasks} />
 
         <Container title="Favoritas">
           {tasks
@@ -42,11 +71,13 @@ const TasksPage = () => {
                 isFavorite={item.isFavorite}
                 key={item._id}
                 onFavoriteToggle={handleFavoriteToggle}
+                onDelete={()=>handleDelete(item._id)}
               >
                 <p>{item.taskContent}</p>
               </Card>
             ))}
         </Container>
+
         <Container title="Outras">
           {tasks
             ?.filter((item) => !item.isFavorite)
@@ -56,6 +87,7 @@ const TasksPage = () => {
                 isFavorite={item.isFavorite}
                 key={item._id}
                 onFavoriteToggle={handleFavoriteToggle}
+                onDelete={()=>handleDelete(item._id)}
               >
                 <p>{item.taskContent}</p>
               </Card>

@@ -2,20 +2,24 @@
 
 .Tasks {
   display: grid;
+  padding-bottom: 50px;
   
 
   .main {
     display: grid;
     gap: 1rem;
     max-width: 100%;
-    background-color: #F0F2F5;
     box-sizing: border-box;
   }
 
 
-  @include tablet {}
+  @include tablet {
+    
+  }
 
-  @include laptop {}
+  @include laptop {
+   
+  }
 
   @include desktop {
     .main {

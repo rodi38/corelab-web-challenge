@@ -6,6 +6,7 @@ interface ISearch {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+
 }
 
 const Search = (props: ISearch) => {

@@ -6,8 +6,20 @@
   background-color: #FFFFFF;
 
   .headerX {
+    display: flex;
     margin-left: -70px;
     font-weight: 400;
+    align-items: center;
+
+    img {
+      width: 13.14px;
+      height: 13.14px;
+      top: 21.92px;
+      left: 1378.27px;
+      gap: 0px;
+      opacity: 0px;
+
+    }
   }
 
   .Header {
