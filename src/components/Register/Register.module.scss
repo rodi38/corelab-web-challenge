@@ -3,48 +3,59 @@
     flex-direction: column;
     border: 1px solid #e1e4e8;
     border-radius: 4px;
-    padding: 10px;
-    background-color: #f8f9fa;
-    width: 30vw;
-    height: 15vh;
+    background-color: #FFFFFF;
+
+    // width: 30vw;
+    // height: 15vh;
     font-family: Arial, sans-serif;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 30px;
 
     box-shadow: 1px 1px 3px 0px #00000040;
 
+    width: 33.158rem;
+    height: 6.46rem;
+    border-radius: 3px;
+
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    position: relative;
+
     .registerCardheader {
         display: flex;
-        padding: 5px;
-
+        padding: 5px 10px;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 8px;
-
+        border-bottom: 1px solid #D9D9D9
     }
 
     .registerCardTitle {
-        padding: 5px;
+        padding: 5px 10px;
 
         font-weight: bold;
-        color: #333;
+        color: #333333;
+        border: none;
+        font-family: Inter;
+        font-size: 14.2px;
+        font-weight: 700;
+        line-height: 17.19px;
+        text-align: left;
+
+
+        &:focus {
+            outline: none;
+        }
     }
 
     .registerCardStar {
         cursor: pointer;
-       
-    }
 
-    .separator {
-
-        height: 1px;
-        width: 100%;
-        background-color: #030a1327;
-        margin: 8px 0;
     }
 
     .registerCardContent {
-        width: 100%;
+        width: 90%;
+        height: 50%;
         border: none;
         background-color: transparent;
         color: #6c757d;
@@ -52,8 +63,80 @@
         resize: none;
         outline: none;
         font-family: inherit;
-        padding: 0;
+
+        padding: 5px 20px;
+
+        font-family: Inter;
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 15.73px;
+        text-align: left;
+
     }
 
-   
+
+}
+
+
+.registerCard.expanded {
+    height: 50vh;
+
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    position: relative;
+}
+
+
+.registerCard.expanded .registerCardContent {
+    display: block;
+    height: 38vh;
+    overflow: hidden;
+}
+
+
+.submitButton {
+    display: none;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border: none;
+
+
+
+    background-color: #13aa52;
+    border: 1px solid #13aa52;
+    border-radius: 4px;
+    box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 400;
+    outline: none;
+    outline: 0;
+    padding: 10px 25px;
+    text-align: center;
+
+
+}
+
+.registerCard.expanded .submitButton {
+    display: block;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+}
+
+.overlay.active {
+    display: block;
 }

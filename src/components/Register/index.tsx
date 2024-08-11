@@ -1,52 +1,115 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Register.module.scss"
-import { MdOutlineStar } from "react-icons/md";
 import star from "../../assets/star.png"
 import filledStar from "../../assets/FullFilledStar.png"
+import {postTask } from "../../lib/api";
 
 
+const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
+  const [favoriteState, setFavoriteState] = useState<boolean>(false);
 
-interface IRegister {
-  isFavorite?: boolean;
-}
+  const [isExpanded, setIsExpanded] = useState(false);
 
 
-const Register = (props: IRegister) => {
-  const [content, setContent] = useState('');
-  const [favorite, setFavorite] = useState(false);
+  const [formData, setFormData] = useState({
+    title: '',
+    taskContent: ''
+  })
 
-  const handleChange = (e: any) => {
-    setContent(e.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    })
   };
+  
 
-  const star1 = props.isFavorite ? star : filledStar;
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  const handleFavorite = async () => {
+    const data = {
+      ...formData,
+      isFavorite: favoriteState,
+    }
     
-    props.isFavorite ? setFavorite(false) : setFavorite(true);
+    try {
+      const response = await postTask(data);
+      console.log(response);
+      setFormData({ title: '', taskContent: '' });
+      setFavoriteState(false);
+      setIsExpanded(false);
+      fetchTasks();
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
+  const actualStar = favoriteState ? filledStar : star;
+
+  const handleFavorite = async () => {
+
+    favoriteState ? setFavoriteState(false) : setFavoriteState(true);
+
+  }
+
+  const handleExpandForm = () => {
+    setIsExpanded(true);
+  };
+
+  const handleOverlayClick = () => {
+    setIsExpanded(false);
+  };
+
+  useEffect(() => {
+    console.log(favoriteState);
+
+    setFavoriteState(favoriteState);
+
+  }, [favoriteState]);
+
   return (
-    <div className={styles.registerCard}>
-      <div className={styles.registerCardheader}>
-        <span className={styles.registerCardTitle}>Título</span>
-        <img
-            src={star1}
+    <>
+      <div
+        className={`${styles.overlay} ${isExpanded ? styles.active : ''}`}
+        onClick={handleOverlayClick}
+      ></div>
+      <form className={`${styles.registerCard} ${isExpanded ? styles.expanded : ''}`} onSubmit={handleSubmit} onClick={handleExpandForm}>
+
+        <div className={styles.registerCardheader}>
+          <input
+            type="text"
+            className={styles.registerCardTitle}
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Título"
+          />
+          <img
+            src={actualStar}
             alt="Descrição da Imagem"
             style={{ width: '18px', height: '17px' }}
             onClick={handleFavorite}
           />
-          
+        </div>
+        <div className={styles.separator} />
+        <textarea
+          className={styles.registerCardContent}
+          value={formData.taskContent}
+          name="taskContent"
+          onChange={handleChange}
+          placeholder="Criar nota..."
+        />
 
-      </div>
-      <div className={styles.separator} />
-      <textarea
-        className={styles.registerCardContent}
-        value={content}
-        onChange={handleChange}
-        placeholder="Criar nota..."
-      />
-    </div>
+        <button
+          type="submit"
+          className={styles.submitButton}
+        >
+          Submit
+        </button>
+      </form >
+    </>
+
   );
 };
 
