@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+.CardModal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 574.61px;
+  height: 46.46px;
+  gap: 0px;
+  border-radius: 9px;
+  border: 1px #D9D9D9;
+  opacity: 0px;
+  background-color: #FFFFFF;
+
+ 
+  padding: 5px;
+
+  position: absolute;
+  bottom: -46.46px;
+  left: 36.71px;
+  z-index: 1000;
+}
+
+.Circle {
+
+  width: 36.71px;
+  height: 36.71px;
+  gap: 0px;
+  opacity: 0px;
+
+  background-color: #BAE2FF;
+  border-radius: 50%;
+}

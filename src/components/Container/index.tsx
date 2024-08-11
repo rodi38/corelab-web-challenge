@@ -13,6 +13,8 @@ const Container = (props: IContainer) => {
         <p className={styles.containerTitle}>{props.title}</p>
         <div className={styles.containerContent}>{props.children}</div>
       </div>
+
+
     </div>
   );
 };
