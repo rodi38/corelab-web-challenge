@@ -1,9 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import '../../styles/break-points.scss';
 
 .HeaderPrincipal {
   display: flex;
   justify-content: space-around;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
+
+  transition: all 0.3s ease-in-out;
 
   .headerX {
     display: flex;
@@ -18,7 +21,6 @@
       left: 1378.27px;
       gap: 0px;
       opacity: 0px;
-
     }
   }
 
@@ -29,22 +31,54 @@
     width: 100vw;
     height: 57px;
 
-
     .headerLogo {
       margin-right: 15px;
       margin-left: 2.242rem;
     }
 
     .headerParagraph {
-      color: #455A64;
+      color: #455a64;
       margin-right: 15px;
       font-family: 'Inter';
-
     }
 
     .headerSearch {
       margin-right: 15px;
-
     }
   }
+}
+
+.containerHambuguerMenu {
+  display: flex;
+
+  justify-content: flex-end;
+
+  transition: all 0.3s ease-in-out;
+
+  .burguermenu {
+    height: 50px;
+    width: 50px;
+    float: right;
+
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+@include sphone {
+  .HeaderPrincipal {
+  }
+}
+
+@include tablet {
+  .HeaderPrincipal {
+  }
+}
+
+@include laptop {
+}
+
+@include desktop {
+}
+
+@include desktop-large {
 }
