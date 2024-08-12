@@ -3,14 +3,13 @@ import styles from "./Register.module.scss"
 import star from "../../assets/star.png"
 import filledStar from "../../assets/FullFilledStar.png"
 import {postTask } from "../../lib/api";
+import { toast } from 'react-toastify';
 
 
 const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
   const [favoriteState, setFavoriteState] = useState<boolean>(false);
 
   const [isExpanded, setIsExpanded] = useState(false);
-
-
   const [formData, setFormData] = useState({
     title: '',
     taskContent: ''
@@ -23,7 +22,6 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
     })
   };
   
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -33,14 +31,15 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
     }
     
     try {
-      const response = await postTask(data);
-      console.log(response);
+      await postTask(data);
+      toast.success("Task cadastrada com sucesso!")
       setFormData({ title: '', taskContent: '' });
       setFavoriteState(false);
       setIsExpanded(false);
       fetchTasks();
 
     } catch (error) {
+      toast.error("Error ao cadastrar: " + error)
       console.error(error);
     }
   }
@@ -84,6 +83,7 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
             value={formData.title}
             onChange={handleChange}
             placeholder="Título"
+            maxLength={25}
           />
           <img
             src={actualStar}
@@ -99,6 +99,7 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
           name="taskContent"
           onChange={handleChange}
           placeholder="Criar nota..."
+          maxLength={100}
         />
 
         <button

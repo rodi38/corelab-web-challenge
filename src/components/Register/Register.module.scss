@@ -5,8 +5,7 @@
     border-radius: 4px;
     background-color: #FFFFFF;
 
-    // width: 30vw;
-    // height: 15vh;
+   
     font-family: Arial, sans-serif;
     margin: 0 auto;
     margin-top: 30px;
@@ -41,7 +40,7 @@
         font-weight: 700;
         line-height: 17.19px;
         text-align: left;
-
+        width: 13vw;
 
         &:focus {
             outline: none;
@@ -79,7 +78,7 @@
 
 
 .registerCard.expanded {
-    height: 50vh;
+    height: 20vh;
 
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -103,6 +102,7 @@
     border: none;
 
 
+    cursor: pointer;
 
     background-color: #13aa52;
     border: 1px solid #13aa52;
