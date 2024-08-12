@@ -1,13 +1,18 @@
-import { ReactNode, useEffect, useState } from "react";
-import styles from "./Card.module.scss";
-import { MdOutlineEdit } from "react-icons/md";
-import solidColor from "../../assets/colors.png";
-import close from "../../assets/close.png";
-import star from "../../assets/star.png"
-import filledStar from "../../assets/FullFilledStar.png"
-import { ITask } from "../../types/Task";
-import { putTask } from "../../lib/api";
-import ColorModal from "./ColorModal";
+import { ReactNode, useEffect, useState } from 'react';
+import styles from './Card.module.scss';
+import { MdOutlineEdit } from 'react-icons/md';
+import solidColor from '../../assets/colors.png';
+import close from '../../assets/close.png';
+import star from '../../assets/star.png';
+import filledStar from '../../assets/FullFilledStar.png';
+import { ITask } from '../../types/Task';
+import { putTask } from '../../lib/api';
+import ColorModal from './ColorModal';
+import { toast } from 'react-toastify';
+import { FaRegSave } from 'react-icons/fa';
+import { TiCancel } from 'react-icons/ti';
+import { IoMdArrowRoundBack } from "react-icons/io";
+
 
 interface ICard {
   data: ITask;
@@ -15,109 +20,161 @@ interface ICard {
   children: ReactNode;
   onFavoriteToggle: (id: string, newFavorite: boolean) => void;
   onDelete: (id: string) => void;
+  setIsEditing: (isEditing: boolean) => void;
+  onUpdate: (updatedTask: ITask) => void;
 }
 
 const Card = (props: ICard) => {
   const [favoriteState, setFavoriteState] = useState<boolean | undefined>(false);
-  const [isColorMenuOpen, setIsColorMenuOpen] = useState(false);
-  const [backgroundColor, setBackgroundColor] = useState<string>("");
-  const [borderColor, setBorderColor] = useState<string>()
+  const [isColorMenuOpen, setIsColorMenuOpen] = useState<string | null>();
+  const [backgroundColor, setBackgroundColor] = useState<string>('');
+  const [borderColor, setBorderColor] = useState<string>();
+  const [isEditing, setIsEditing] = useState(false);
+  const [title, setTitle] = useState(props.data.title);
+  const [taskContent, setTaskContent] = useState(props.data.taskContent);
+
+  const handleOverlayEditing = () => {
+    setIsEditing(false);
+  };
+
+  const handleEdit = async () => {
+    try {
+      const updatedTask = await putTask(props.data._id, {
+        title,
+        taskContent,
+        isFavorite: favoriteState,
+      });
+
+      toast.success('Task atualizada com sucesso!');
+      props.onUpdate(updatedTask);
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Erro ao atualizar a task:', error);
+      toast.error('Erro ao atualizar a task!');
+    }
+  };
 
   const handleDelete = () => {
     props.onDelete(props.data._id);
-  }
-  
+    toast.info('Task deletada com sucesso!');
+  };
 
-  const isGrey = "#D9D9D9";
-  const isWhite = "#FFFFFF";
+  const isGrey = '#D9D9D9';
+  const isWhite = '#FFFFFF';
 
-  const toggleColorMenu = () => {
-    setIsColorMenuOpen((prev) => !prev);
+  const toggleColorMenu = (id: string) => {
+    
+    if (isColorMenuOpen === id) {
+        setIsColorMenuOpen(null);
+      } else {
+        setIsColorMenuOpen(id);
+      }
+    
+  };
+
+  const handleEditing = () => {
+    setIsEditing(!isEditing);
+    props.setIsEditing(isEditing);
   };
 
   const handleColorCard = (color: string) => {
     setBackgroundColor(color);
-    if(color !== isWhite) {
-      setBorderColor(isWhite)
-    } else {
-      setBorderColor(isGrey)
-    }
+
+    setIsColorMenuOpen(null);
+
     localStorage.setItem(`card-color-${props.data._id}`, color);
   };
 
   const actualStar = favoriteState ? filledStar : star;
 
-
   const handleFavorite = async () => {
     const newFavoriteState = !favoriteState;
     const { title, taskContent } = props.data;
     try {
-      await putTask(props.data._id, { title, taskContent, isFavorite: newFavoriteState });
+      await putTask(props.data._id, {
+        title,
+        taskContent,
+        isFavorite: newFavoriteState,
+      });
       setFavoriteState(newFavoriteState);
       props.onFavoriteToggle(props.data._id, newFavoriteState);
     } catch (error) {
-      console.error("Failed to update favorite status:", error);
+      console.error('Failed to update favorite status:', error);
     }
   };
 
   useEffect(() => {
-    setFavoriteState(props.isFavorite); 
+    setFavoriteState(props.isFavorite);
     const savedColor = localStorage.getItem(`card-color-${props.data._id}`);
     if (savedColor) {
       setBackgroundColor(savedColor);
     }
   }, [props.isFavorite, props.data._id]);
 
-
   return (
-    <div className={styles.Card} style={{backgroundColor: backgroundColor }}>
-
-      <header className={styles.cardHeader}>
-      {isColorMenuOpen && <ColorModal cardColor={backgroundColor} onColorPick={handleColorCard} />}
-        <div className={styles.titleContainer} style={{ borderBottom: "1px solid", borderColor: borderColor }}>
-          <p className={styles.title}>{props.data.title}</p>
-
-          <img
-            src={actualStar}
-            alt="Descrição da Imagem"
-            className={styles.star}
-            onClick={handleFavorite}
-          />
-        </div>
-        <div className={styles.separator} />
-        <div className={styles.content}>{props.children}</div>
-
-      </header>
-
-      <footer className={styles.cardFooter}>
-        <div className={styles.cardFooterMenu}>
-          <div >
-            <MdOutlineEdit className={styles.cardEdit} />
+    <>
+      <div className={`${styles.overlay} ${isEditing ? styles.active : ''}`} onClick={handleOverlayEditing}></div>
+      <div className={`${styles.Card} ${isEditing ? styles.editing : ''}`} style={{ backgroundColor: backgroundColor }}>
+        <header className={styles.cardHeader}>
+          {isColorMenuOpen === props.data._id && (<ColorModal cardColor={backgroundColor} onColorPick={handleColorCard} />)}
+          <div className={styles.titleContainer} style={{ borderBottom: '1px solid', borderColor: borderColor }}>
+            {isEditing ? (
+              <input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className={styles.titleInput}
+                maxLength={25}
+              />
+            ) : (
+              <>
+                <p className={styles.title}>{props.data.title}</p>
+                <img src={actualStar} alt="Descrição da Imagem" className={styles.star} onClick={handleFavorite} />
+              </>
+            )}
           </div>
-          <div>
-            <img
-              src={solidColor}
-              alt="Descrição da Imagem"
-              className={styles.cardColorPicker}
-              onClick={toggleColorMenu}
-            />
+          <div className={styles.separator} />
+          <div className={styles.content}>
+            {isEditing ? (
+              <textarea
+                value={taskContent}
+                onChange={(e) => setTaskContent(e.target.value)}
+                className={styles.contentTextArea}
+                maxLength={100}
+              />
+            ) : (
+              props.children
+            )}
           </div>
-        </div>
+        </header>
 
+        <footer className={styles.cardFooter}>
+          <div className={styles.cardFooterMenu}>
+            <div>
+              <MdOutlineEdit className={styles.cardEdit} onClick={handleEditing} />
+            </div>
+            <div>
+              <img
+                src={solidColor}
+                alt="Descrição da Imagem"
+                className={styles.cardColorPicker}
+                onClick={() => toggleColorMenu(props.data._id)}
+              />
+            </div>
+          </div>
 
-        <div className={styles.footerCloseMenu}>
-          <img
-            src={close}
-            alt="Descrição da Imagem"
-            className={styles.closeCard}
-            onClick={handleDelete}
-          />
+          <div className={styles.footerCloseMenu}>
+            {isEditing &&  <IoMdArrowRoundBack className={styles.Button} onClick={handleOverlayEditing}></IoMdArrowRoundBack>}
 
-          
-        </div>
-      </footer>
-
-    </div>
+            {isEditing ? (
+              <FaRegSave onClick={handleEdit} className={styles.Button} />
+            ) : (
+              <img src={close} alt="Descrição da Imagem" className={styles.closeCard} onClick={handleDelete} />
+            )}
+          </div>
+        </footer>
+      </div>
+    </>
   );
 };
 

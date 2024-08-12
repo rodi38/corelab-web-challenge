@@ -30,4 +30,13 @@
 
   background-color: #BAE2FF;
   border-radius: 50%;
+
+  transition: 300ms;
+
+  cursor: pointer;
+
+  &:hover {
+    width: 40px;
+    height: 40px;
+  }
 }

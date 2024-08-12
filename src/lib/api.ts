@@ -1,4 +1,3 @@
-import { IFilter } from "../types/IFilterTask";
 import { ITaskRequest } from "../types/ITaskRequest";
 import { ITask } from "../types/Task";
 import { queryString } from "./util/util";
@@ -7,10 +6,13 @@ const API = "http://localhost:5000";
 
 const endpoint = (path: string): string => API + path;
 
-const apiGet = async (path: string, payload?:  { [key: string]: string }): Promise<any> => {
+const apiGet = async (
+  path: string,
+  payload?: { [key: string]: string }
+): Promise<any> => {
   const query = queryString(payload);
 
-  return await fetch(endpoint(path)+ query, {
+  return await fetch(endpoint(path) + query, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +23,6 @@ const apiGet = async (path: string, payload?:  { [key: string]: string }): Promi
     }
     return res.json();
   });
-
 };
 const apiPost = async (path: string, payload: ITaskRequest): Promise<ITask> => {
   return await fetch(endpoint(path), {
@@ -38,7 +39,7 @@ const apiPost = async (path: string, payload: ITaskRequest): Promise<ITask> => {
   });
 };
 
-const apiPut = async (path: string, payload: ITaskRequest): Promise<ITaskRequest> => {
+const apiPut = async (path: string, payload: ITaskRequest): Promise<ITask> => {
   return await fetch(endpoint(path), {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
@@ -47,11 +48,10 @@ const apiPut = async (path: string, payload: ITaskRequest): Promise<ITaskRequest
     if (!res.ok) {
       throw new Error(`Error: ${res.status} ${res.statusText}`);
     }
-    
+
     return res.json();
   });
 };
-
 
 const apiDelete = async (path: string) => {
   return await fetch(endpoint(path), {
@@ -61,12 +61,12 @@ const apiDelete = async (path: string) => {
     if (!res.ok) {
       throw new Error(`Error: ${res.status} ${res.statusText}`);
     }
-    
+
     return res.json();
   });
 };
 
-export const getTasks = async (payload?:  { [key: string]: string }) => {
+export const getTasks = async (payload?: { [key: string]: string }) => {
   return apiGet("/tasks", payload);
 };
 
@@ -79,4 +79,4 @@ export const putTask = async (id: string, payload: ITaskRequest) => {
 
 export const deleteTask = async (id: string) => {
   return apiDelete(`/tasks/${id}`);
-}
+};
