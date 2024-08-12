@@ -106,7 +106,7 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
           type="submit"
           className={styles.submitButton}
         >
-          Submit
+          Enviar
         </button>
       </form >
     </>

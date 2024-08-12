@@ -78,7 +78,7 @@
 
 
 .registerCard.expanded {
-    height: 20vh;
+    height: 18vh;
 
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
@@ -89,7 +89,7 @@
 
 .registerCard.expanded .registerCardContent {
     display: block;
-    height: 38vh;
+    height: 35vh;
     overflow: hidden;
 }
 
@@ -105,7 +105,7 @@
     cursor: pointer;
 
     background-color: #13aa52;
-    border: 1px solid #13aa52;
+    border: 1px solid #15442785;
     border-radius: 4px;
     box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
     box-sizing: border-box;
@@ -116,7 +116,7 @@
     font-weight: 400;
     outline: none;
     outline: 0;
-    padding: 10px 25px;
+    padding: 8px 20px;
     text-align: center;
 
 
