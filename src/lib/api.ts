@@ -2,7 +2,7 @@ import { ITaskRequest } from '../types/ITaskRequest';
 import { ITask } from '../types/Task';
 import { queryString } from './util/util';
 
-const API = 'http://localhost:5000';
+const API = process.env.REACT_APP_API_URL_PRODUCTION;
 
 const endpoint = (path: string): string => API + path;
 
