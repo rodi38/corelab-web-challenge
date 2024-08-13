@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styles from "./Register.module.scss"
-import star from "../../assets/star.png"
-import filledStar from "../../assets/FullFilledStar.png"
-import {postTask } from "../../lib/api";
+import React, { useEffect, useState } from 'react';
+import styles from './Register.module.scss';
+import star from '../../assets/star.png';
+import filledStar from '../../assets/FullFilledStar.png';
+import { postTask } from '../../lib/api';
 import { toast } from 'react-toastify';
-
 
 const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
   const [favoriteState, setFavoriteState] = useState<boolean>(false);
@@ -12,45 +11,42 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
-    taskContent: ''
-  })
+    taskContent: '',
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
+    });
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const data = {
       ...formData,
       isFavorite: favoriteState,
-    }
-    
+    };
+
     try {
       await postTask(data);
-      toast.success("Task cadastrada com sucesso!")
+      toast.success('Task cadastrada com sucesso!');
       setFormData({ title: '', taskContent: '' });
       setFavoriteState(false);
       setIsExpanded(false);
       fetchTasks();
-
     } catch (error) {
-      toast.error("Error ao cadastrar: " + error)
+      toast.error('Error ao cadastrar: ' + error);
       console.error(error);
     }
-  }
+  };
 
   const actualStar = favoriteState ? filledStar : star;
 
   const handleFavorite = async () => {
-
     favoriteState ? setFavoriteState(false) : setFavoriteState(true);
-
-  }
+  };
 
   const handleExpandForm = () => {
     setIsExpanded(true);
@@ -64,17 +60,16 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
     console.log(favoriteState);
 
     setFavoriteState(favoriteState);
-
   }, [favoriteState]);
 
   return (
     <>
-      <div
-        className={`${styles.overlay} ${isExpanded ? styles.active : ''}`}
-        onClick={handleOverlayClick}
-      ></div>
-      <form className={`${styles.registerCard} ${isExpanded ? styles.expanded : ''}`} onSubmit={handleSubmit} onClick={handleExpandForm}>
-
+      <div className={`${styles.overlay} ${isExpanded ? styles.active : ''}`} onClick={handleOverlayClick}></div>
+      <form
+        className={`${styles.registerCard} ${isExpanded ? styles.expanded : ''}`}
+        onSubmit={handleSubmit}
+        onClick={handleExpandForm}
+      >
         <div className={styles.registerCardheader}>
           <input
             type="text"
@@ -90,6 +85,7 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
             alt="Descrição da Imagem"
             style={{ width: '18px', height: '17px' }}
             onClick={handleFavorite}
+            className={styles.registerCardStar}
           />
         </div>
         <div className={styles.separator} />
@@ -102,15 +98,11 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
           maxLength={100}
         />
 
-        <button
-          type="submit"
-          className={styles.submitButton}
-        >
+        <button type="submit" className={styles.submitButton}>
           Enviar
         </button>
-      </form >
+      </form>
     </>
-
   );
 };
 

@@ -66,6 +66,53 @@
 
 @include sphone {
   .HeaderPrincipal {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100vw;
+    position: relative;
+    align-items: center;
+
+    .headerX {
+      display: flex;
+      position: absolute;
+      margin: 0;
+      right: 0;
+      margin-right: 10px;
+      font-weight: 400;
+      align-items: center;
+    }
+
+    margin: 0;
+
+    .Header {
+      display: flex;
+      justify-content: start;
+
+      gap: 10px;
+
+      .headerLogo {
+        margin: 0;
+      }
+
+      .headerParagraph {
+        margin: 0;
+      }
+
+      .headerSearch {
+        margin: 0;
+      }
+
+      .containerHambuguerMenu {
+        height: 50px;
+        width: 50px;
+        float: none;
+
+        transition: all 0.3s ease-in-out;
+
+        .burguermenu {
+        }
+      }
+    }
   }
 }
 
@@ -81,4 +128,7 @@
 }
 
 @include desktop-large {
+  .HeaderPrincipal {
+    background-color: black;
+  }
 }

@@ -1,7 +1,14 @@
+$small-phones: 320px;
 $tablet-size: 481px;
 $laptop-size: 769px;
 $desktop-size: 1025px;
 $desktop-large-size: 1201px;
+
+@mixin sphone {
+  @media screen and (min-width: #{$small-phones}) {
+    @content;
+  }
+}
 
 @mixin tablet {
   @media screen and (min-width: #{$tablet-size}) {

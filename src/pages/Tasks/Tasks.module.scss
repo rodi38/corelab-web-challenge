@@ -4,10 +4,8 @@
   padding-bottom: 50px;
 
   .main {
-    display: grid;
     gap: 1rem;
     width: 100%;
-    min-width: 481px;
     box-sizing: border-box;
 
     .text {
@@ -16,25 +14,22 @@
       white-space: normal;
     }
   }
+}
 
-  @include sphone {
-    
+@include sphone {
+  .main {
+    width: 100%;
   }
+}
 
-  @include tablet {
-    
-  }
+@include tablet {
+}
 
-  @include laptop {
-  }
+@include laptop {
+}
 
-  @include desktop {
-    .main {
-      display: grid;
-      padding: 0 10rem;
-    }
-  }
+@include desktop {
+}
 
-  @include desktop-large {
-  }
+@include desktop-large {
 }

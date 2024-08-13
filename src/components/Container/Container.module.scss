@@ -1,3 +1,5 @@
+@import '../../styles/break-points.scss';
+
 .Container {
   display: flex;
   flex-direction: column;
@@ -12,7 +14,6 @@
     flex-direction: column;
     padding: 20px;
     .containerTitle {
-
       font-family: Inter;
       font-size: 12px;
       font-weight: 400;
@@ -21,7 +22,7 @@
       color: #464646;
       padding: 7px 19px;
     }
-  
+
     .containerContent {
       display: flex;
       justify-content: start;
@@ -31,6 +32,41 @@
       gap: 1rem;
     }
   }
-  
+}
 
+@include sphone {
+  .Container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    .containerAlign {
+      padding: 0;
+      margin: 0;
+      margin-top: 30px;
+      .containerTitle {
+        display: flex;
+        align-self: flex-start;
+      }
+
+      .containerContent {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@include tablet {
+}
+
+@include laptop {
+}
+
+@include desktop {
+}
+
+@include desktop-large {
 }

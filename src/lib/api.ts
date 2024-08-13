@@ -1,21 +1,18 @@
-import { ITaskRequest } from "../types/ITaskRequest";
-import { ITask } from "../types/Task";
-import { queryString } from "./util/util";
+import { ITaskRequest } from '../types/ITaskRequest';
+import { ITask } from '../types/Task';
+import { queryString } from './util/util';
 
-const API = "http://localhost:5000";
+const API = 'https://corelab-api-challenge-uwxe.onrender.com';
 
 const endpoint = (path: string): string => API + path;
 
-const apiGet = async (
-  path: string,
-  payload?: { [key: string]: string }
-): Promise<any> => {
+const apiGet = async (path: string, payload?: { [key: string]: string }): Promise<any> => {
   const query = queryString(payload);
 
   return await fetch(endpoint(path) + query, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).then((res) => {
     if (!res.ok) {
@@ -26,9 +23,9 @@ const apiGet = async (
 };
 const apiPost = async (path: string, payload: ITaskRequest): Promise<ITask> => {
   return await fetch(endpoint(path), {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(payload),
   }).then((res) => {
@@ -41,8 +38,8 @@ const apiPost = async (path: string, payload: ITaskRequest): Promise<ITask> => {
 
 const apiPut = async (path: string, payload: ITaskRequest): Promise<ITask> => {
   return await fetch(endpoint(path), {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
   }).then((res) => {
     if (!res.ok) {
@@ -55,8 +52,8 @@ const apiPut = async (path: string, payload: ITaskRequest): Promise<ITask> => {
 
 const apiDelete = async (path: string) => {
   return await fetch(endpoint(path), {
-    method: "DELETE",
-    headers: { "Content-Type": "application/json" },
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
   }).then((res) => {
     if (!res.ok) {
       throw new Error(`Error: ${res.status} ${res.statusText}`);
@@ -67,11 +64,11 @@ const apiDelete = async (path: string) => {
 };
 
 export const getTasks = async (payload?: { [key: string]: string }) => {
-  return apiGet("/tasks", payload);
+  return apiGet('/tasks', payload);
 };
 
 export const postTask = async (payload: ITaskRequest) => {
-  return apiPost("/tasks", payload);
+  return apiPost('/tasks', payload);
 };
 export const putTask = async (id: string, payload: ITaskRequest) => {
   return apiPut(`/tasks/${id}`, payload);
