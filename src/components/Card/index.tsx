@@ -37,6 +37,7 @@ const Card = (props: ICard) => {
 
   const handleEdit = async () => {
     try {
+        
       const updatedTask = await putTask(props.data._id, {
         title,
         taskContent,
