@@ -6,11 +6,24 @@ import Container from '../../components/Container';
 import { ITask } from '../../types/Task';
 import Register from '../../components/Register';
 import { toast } from 'react-toastify';
+import ConfirmModal from '../../components/ConfirmModal';
 
 const TasksPage = () => {
   const [tasks, setTasks] = useState<ITask[]>([]);
   const [search, setSearch] = useState<string>('');
   const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [taskToDelete, setTaskToDelete] = useState<ITask | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const handleDeleteClick = (task: ITask) => {
+    setTaskToDelete(task);
+    setIsModalOpen(true);
+  };
+
+  const handleDeleteCancel = () => {
+    setIsModalOpen(false);
+    setTaskToDelete(null);
+  };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -41,16 +54,24 @@ const TasksPage = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    try {
-      const updatedTasks = tasks.filter((item) => item._id !== id);
-      setTasks(updatedTasks);
-      await deleteTask(id);
-    } catch (e) {
-      console.error(e);
+  const handleDeleteConfirm = async () => {
+    if (taskToDelete) {
+      try {
+        await deleteTask(taskToDelete._id);
+        const updatedTasks = tasks.filter((item) => item._id !== taskToDelete._id);
+        setTasks(updatedTasks);
+        toast.info('Tarefa excluída com sucesso!');
+      } catch (e) {
+        console.error(e);
+        toast.error('Erro ao excluir a tarefa!');
+      } finally {
+        setIsModalOpen(false);
+        setTaskToDelete(null);
+      }
     }
   };
 
+  
   return (
     <div className={styles.Tasks}>
       <Header fetchSearchedTasks={fetchTasks} value={search} onChange={handleSearch} />
@@ -66,7 +87,7 @@ const TasksPage = () => {
                 isFavorite={item.isFavorite}
                 key={item._id}
                 onFavoriteToggle={handleFavoriteToggle}
-                onDelete={() => handleDelete(item._id)}
+                onDelete={() => handleDeleteClick(item)}
                 onUpdate={handleEdit}
                 setIsEditing={setIsEditing}
               >
@@ -84,7 +105,7 @@ const TasksPage = () => {
                 isFavorite={item.isFavorite}
                 key={item._id}
                 onFavoriteToggle={handleFavoriteToggle}
-                onDelete={() => handleDelete(item._id)}
+                onDelete={() => handleDeleteClick(item)}
                 onUpdate={handleEdit}
                 setIsEditing={setIsEditing}
               >
@@ -93,6 +114,12 @@ const TasksPage = () => {
             ))}
         </Container>
       </main>
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+        message={`Tem certeza que deseja excluir a tarefa "${taskToDelete?.taskContent}"?`}
+      />
     </div>
   );
 };
