@@ -43,6 +43,30 @@
   }
 }
 
+@include pocket {
+  .CardModal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    bottom: -100px;
+    left: 36.71px;
+    z-index: 1000;
+
+    width: 260.94px;
+    height: 96.58px;
+
+    border-radius: 9px;
+
+    gap: 3px;
+  }
+
+  .Circle {
+    width: 36.71px;
+    height: 36.71px;
+    border: 1px solid transparent;
+  }
+}
+
 @include sphone {
   .CardModal {
     flex-direction: row;
