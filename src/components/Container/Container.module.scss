@@ -14,6 +14,7 @@
     flex-direction: column;
     padding: 20px;
     .containerTitle {
+      user-select: none;
       font-family: Inter;
       font-size: 12px;
       font-weight: 400;
@@ -69,4 +70,27 @@
 }
 
 @include desktop-large {
+  .Container {
+    align-items: center;
+
+    .containerAlign {
+      width: 70vw;
+      justify-content: center;
+      align-items: baseline;
+      box-sizing: border-box;
+
+      .containerTitle {
+        margin-left: 4rem;
+      }
+
+      .containerContent {
+        box-sizing: border-box;
+
+        flex-wrap: wrap;
+        width: 75.25rem;
+
+        justify-content: start;
+      }
+    }
+  }
 }

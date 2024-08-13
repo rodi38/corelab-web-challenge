@@ -1,9 +1,12 @@
 @import '../../styles/break-points.scss';
 
 .Tasks {
+  display: grid;
   padding-bottom: 50px;
 
   .main {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
     width: 100%;
     box-sizing: border-box;

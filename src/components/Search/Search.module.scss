@@ -50,13 +50,57 @@
 }
 
 @include tablet {
+  .SearchBar {
+    width: 30rem;
+
+    .SearchIcon {
+    }
+
+    input {
+      width: 20rem;
+      padding: 10px;
+    }
+  }
 }
 
 @include laptop {
+  .SearchBar {
+    width: 40rem;
+
+    .SearchIcon {
+    }
+
+    input {
+      width: 20rem;
+      padding: 10px;
+    }
+  }
 }
 
 @include desktop {
+  .SearchBar {
+    width: 40rem;
+
+    .SearchIcon {
+    }
+
+    input {
+      width: 20rem;
+      padding: 10px;
+    }
+  }
 }
 
 @include desktop-large {
+  .SearchBar {
+    width: 60rem;
+
+    .SearchIcon {
+    }
+
+    input {
+      width: 20rem;
+      padding: 10px;
+    }
+  }
 }

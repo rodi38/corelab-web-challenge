@@ -10,9 +10,7 @@ import { putTask } from '../../lib/api';
 import ColorModal from './ColorModal';
 import { toast } from 'react-toastify';
 import { FaRegSave } from 'react-icons/fa';
-import { TiCancel } from 'react-icons/ti';
-import { IoMdArrowRoundBack } from "react-icons/io";
-
+import { IoMdArrowRoundBack } from 'react-icons/io';
 
 interface ICard {
   data: ITask;
@@ -22,13 +20,13 @@ interface ICard {
   onDelete: (id: string) => void;
   setIsEditing: (isEditing: boolean) => void;
   onUpdate: (updatedTask: ITask) => void;
+  isColorMenuOpen: string | null;
+  setIsColorMenuOpen: (id: string | null) => void;
 }
 
 const Card = (props: ICard) => {
   const [favoriteState, setFavoriteState] = useState<boolean | undefined>(false);
-  const [isColorMenuOpen, setIsColorMenuOpen] = useState<string | null>();
   const [backgroundColor, setBackgroundColor] = useState<string>('');
-  const [borderColor, setBorderColor] = useState<string>();
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(props.data.title);
   const [taskContent, setTaskContent] = useState(props.data.taskContent);
@@ -56,20 +54,14 @@ const Card = (props: ICard) => {
 
   const handleDelete = () => {
     props.onDelete(props.data._id);
-    toast.info('Task deletada com sucesso!');
   };
 
-  const isGrey = '#D9D9D9';
-  const isWhite = '#FFFFFF';
-
-  const toggleColorMenu = (id: string) => {
-    
-    if (isColorMenuOpen === id) {
-        setIsColorMenuOpen(null);
-      } else {
-        setIsColorMenuOpen(id);
-      }
-    
+  const toggleColorMenu = () => {
+    if (props.isColorMenuOpen === props.data._id) {
+      props.setIsColorMenuOpen(null);
+    } else {
+      props.setIsColorMenuOpen(props.data._id);
+    }
   };
 
   const handleEditing = () => {
@@ -80,7 +72,7 @@ const Card = (props: ICard) => {
   const handleColorCard = (color: string) => {
     setBackgroundColor(color);
 
-    setIsColorMenuOpen(null);
+    props.setIsColorMenuOpen(null);
 
     localStorage.setItem(`card-color-${props.data._id}`, color);
   };
@@ -116,8 +108,11 @@ const Card = (props: ICard) => {
       <div className={`${styles.overlay} ${isEditing ? styles.active : ''}`} onClick={handleOverlayEditing}></div>
       <div className={`${styles.Card} ${isEditing ? styles.editing : ''}`} style={{ backgroundColor: backgroundColor }}>
         <header className={styles.cardHeader}>
-          {isColorMenuOpen === props.data._id && (<ColorModal cardColor={backgroundColor} onColorPick={handleColorCard} />)}
-          <div className={styles.titleContainer} style={{ borderBottom: '1px solid', borderColor: borderColor }}>
+          {props.isColorMenuOpen === props.data._id && (
+            <ColorModal cardColor={backgroundColor} onColorPick={handleColorCard} />
+          )}
+
+          <div className={styles.titleContainer} style={{ borderBottom: '1px solid' }}>
             {isEditing ? (
               <input
                 type="text"
@@ -158,13 +153,15 @@ const Card = (props: ICard) => {
                 src={solidColor}
                 alt="Descrição da Imagem"
                 className={styles.cardColorPicker}
-                onClick={() => toggleColorMenu(props.data._id)}
+                onClick={toggleColorMenu}
               />
             </div>
           </div>
 
           <div className={styles.footerCloseMenu}>
-            {isEditing &&  <IoMdArrowRoundBack className={styles.Button} onClick={handleOverlayEditing}></IoMdArrowRoundBack>}
+            {isEditing && (
+              <IoMdArrowRoundBack className={styles.Button} onClick={handleOverlayEditing}></IoMdArrowRoundBack>
+            )}
 
             {isEditing ? (
               <FaRegSave onClick={handleEdit} className={styles.Button} />

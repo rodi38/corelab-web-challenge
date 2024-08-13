@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-around;
   background-color: #ffffff;
+  user-select: none;
 
   transition: all 0.3s ease-in-out;
 
@@ -129,6 +130,6 @@
 
 @include desktop-large {
   .HeaderPrincipal {
-    background-color: black;
+    // background-color: black;
   }
 }

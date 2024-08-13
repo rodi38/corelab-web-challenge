@@ -14,6 +14,9 @@ const TasksPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [taskToDelete, setTaskToDelete] = useState<ITask | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isColorMenuOpen, setIsColorMenuOpen] = useState<string | null>(null);
+
+
 
   const handleDeleteClick = (task: ITask) => {
     setTaskToDelete(task);
@@ -71,7 +74,6 @@ const TasksPage = () => {
     }
   };
 
-  
   return (
     <div className={styles.Tasks}>
       <Header fetchSearchedTasks={fetchTasks} value={search} onChange={handleSearch} />
@@ -90,6 +92,8 @@ const TasksPage = () => {
                 onDelete={() => handleDeleteClick(item)}
                 onUpdate={handleEdit}
                 setIsEditing={setIsEditing}
+                isColorMenuOpen={isColorMenuOpen}
+                setIsColorMenuOpen={setIsColorMenuOpen} 
               >
                 <p className={styles.text}>{item.taskContent}</p>
               </Card>
@@ -108,6 +112,8 @@ const TasksPage = () => {
                 onDelete={() => handleDeleteClick(item)}
                 onUpdate={handleEdit}
                 setIsEditing={setIsEditing}
+                isColorMenuOpen={isColorMenuOpen}
+                setIsColorMenuOpen={setIsColorMenuOpen} 
               >
                 <p className={styles.text}>{item.taskContent}</p>
               </Card>
@@ -118,7 +124,7 @@ const TasksPage = () => {
         isOpen={isModalOpen}
         onConfirm={handleDeleteConfirm}
         onCancel={handleDeleteCancel}
-        message={`Tem certeza que deseja excluir a tarefa "${taskToDelete?.taskContent}"?`}
+        message={`Tem certeza que deseja excluir a tarefa "${taskToDelete?.title}"?`}
       />
     </div>
   );

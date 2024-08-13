@@ -136,7 +136,7 @@
     justify-content: center;
     align-self: center;
     width: 80%;
-    border-radius: 25px;
+    border-radius: 1.563rem;
 
     .registerCardheader {
     }
@@ -157,13 +157,93 @@
 }
 
 @include tablet {
+  .registerCard {
+    width: 20.158rem;
+    height: 6.46rem;
+    border-radius: 3px;
+
+    .registerCardheader {
+    }
+
+    .registerCardTitle {
+      &:focus {
+      }
+    }
+
+    .registerCardStar {
+      padding-right: 10px;
+    }
+
+    .registerCardContent {
+    }
+  }
 }
 
 @include laptop {
+  .registerCard {
+    width: 33.158rem;
+    height: 6.46rem;
+    border-radius: 3px;
+
+    .registerCardheader {
+    }
+
+    .registerCardTitle {
+      &:focus {
+      }
+    }
+
+    .registerCardStar {
+      padding-right: 10px;
+    }
+
+    .registerCardContent {
+    }
+  }
 }
 
 @include desktop {
+  .registerCard {
+    width: 20.158rem;
+    height: 6.46rem;
+    border-radius: 3px;
+
+    .registerCardheader {
+    }
+
+    .registerCardTitle {
+      &:focus {
+      }
+    }
+
+    .registerCardStar {
+      padding-right: 10px;
+    }
+
+    .registerCardContent {
+    }
+  }
 }
 
 @include desktop-large {
+  .registerCard {
+    width: 33.158rem;
+    height: 6.46rem;
+    border-radius: 3px;
+
+    .registerCardheader {
+    }
+
+    .registerCardTitle {
+      &:focus {
+      }
+    }
+
+    .registerCardStar {
+      padding-right: 10px;
+    }
+
+    .registerCardContent {
+    }
+  }
 }

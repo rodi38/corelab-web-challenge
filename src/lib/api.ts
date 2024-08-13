@@ -2,7 +2,7 @@ import { ITaskRequest } from '../types/ITaskRequest';
 import { ITask } from '../types/Task';
 import { queryString } from './util/util';
 
-const API = 'https://corelab-api-challenge-uwxe.onrender.com';
+const API = 'http://localhost:5000';
 
 const endpoint = (path: string): string => API + path;
 
@@ -59,7 +59,7 @@ const apiDelete = async (path: string) => {
       throw new Error(`Error: ${res.status} ${res.statusText}`);
     }
 
-    return res.json();
+    return;
   });
 };
 
