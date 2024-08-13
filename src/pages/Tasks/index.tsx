@@ -107,7 +107,7 @@ const TasksPage = () => {
                 onDelete={() => handleDeleteClick(item)}
                 onUpdate={handleEdit}
                 setIsEditing={setIsEditing}
-                isColorMenuOpen={isColorMenuOpen} // Passar como prop
+                isColorMenuOpen={isColorMenuOpen}
                 setIsColorMenuOpen={setIsColorMenuOpen}
               >
                 <p className={styles.text}>{item.taskContent}</p>

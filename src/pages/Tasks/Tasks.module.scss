@@ -1,7 +1,6 @@
 @import '../../styles/break-points.scss';
 
 .Tasks {
-  display: grid;
   padding-bottom: 50px;
 
   .main {
@@ -10,7 +9,8 @@
     gap: 1rem;
     width: 100%;
     box-sizing: border-box;
-
+    align-items: center;
+    justify-content: center;
     .text {
       word-wrap: break-word;
       word-break: break-all;

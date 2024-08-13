@@ -131,6 +131,30 @@
   display: block;
 }
 
+@include pocket {
+    .registerCard {
+        
+        width: 80%;
+        border-radius: 1.563rem;
+    
+        .registerCardheader {
+        }
+    
+        .registerCardTitle {
+          width: 80%;
+          &:focus {
+          }
+        }
+    
+        .registerCardStar {
+          padding-right: 10px;
+        }
+    
+        .registerCardContent {
+        }
+      }
+}
+
 @include sphone {
   .registerCard {
     justify-content: center;

@@ -28,9 +28,34 @@
       display: flex;
       justify-content: start;
       align-items: center;
-      margin: 0 auto;
       flex-wrap: wrap;
       gap: 1rem;
+    }
+  }
+}
+
+@include pocket {
+  .Container {
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    box-sizing: border-box;
+
+    justify-content: center;
+    align-items: center;
+
+    .containerAlign {
+      padding: 0;
+
+      box-sizing: border-box;
+      .containerTitle {
+      }
+
+      .containerContent {
+        width: 100vw;
+        box-sizing: border-box;
+      }
     }
   }
 }
@@ -76,17 +101,10 @@
 }
 
 @include laptop {
-}
-
-@include desktop {
-}
-
-@include desktop-large {
   .Container {
     align-items: center;
-
     .containerAlign {
-      width: 70vw;
+      width: 100vw;
       justify-content: center;
       align-items: baseline;
       box-sizing: border-box;
@@ -99,7 +117,60 @@
         box-sizing: border-box;
 
         flex-wrap: wrap;
-        width: 75.25rem;
+        width: 90vw;
+        justify-content: start;
+      }
+    }
+  }
+}
+
+@include desktop {
+  .Container {
+    justify-content: center;
+    align-items: center;
+
+    .containerAlign {
+      width: 100vw;
+      justify-content: center;
+      align-items: baseline;
+      box-sizing: border-box;
+
+      .containerTitle {
+        margin-left: 4rem;
+      }
+
+      .containerContent {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+
+        flex-wrap: wrap;
+        width: 90vw;
+
+        justify-content: start;
+      }
+    }
+  }
+}
+
+@include desktop-large {
+  .Container {
+    align-items: center;
+
+    .containerAlign {
+      width: 100vw;
+      justify-content: center;
+      align-items: baseline;
+      box-sizing: border-box;
+
+      .containerTitle {
+        margin-left: 5%;
+      }
+
+      .containerContent {
+
+        flex-wrap: wrap;
+        width: 85vw;
 
         justify-content: start;
       }

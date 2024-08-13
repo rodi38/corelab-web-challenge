@@ -185,13 +185,11 @@
 .contentTextArea {
   border: none;
   background-color: transparent;
-  // color: #6c757d;
   font-size: 14px;
   resize: none;
   outline: none;
   font-family: inherit;
 
-  // padding: 5px 20px;
 
   font-family: Inter;
   font-size: 16px;
@@ -217,8 +215,49 @@
   }
 }
 
+@include pocket {
+  .Card {
+    width: 99vw;
+    .cardHeader {
+      .titleContainer {
+        .title {
+        }
+      }
+
+      .content {
+      }
+
+      .star {
+      }
+    }
+    .cardFooter {
+      .cardFooterMenu {
+        .cardEdit {
+          &:hover,
+          &:focus,
+          &:active {
+          }
+        }
+
+        .cardColorPicker {
+          &:hover,
+          &:focus,
+          &:active {
+          }
+        }
+      }
+      .footerCloseMenu {
+        .closeCard {
+        }
+      }
+    }
+  }
+}
+
 @include sphone {
   .Card {
+    width: 24.375rem;
+    height: 27.313rem;
     .cardHeader {
       .titleContainer {
         .title {

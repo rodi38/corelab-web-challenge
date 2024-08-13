@@ -37,8 +37,7 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
       setIsExpanded(false);
       fetchTasks();
     } catch (error) {
-      toast.error('Error ao cadastrar: ' + error);
-      console.error(error);
+      toast.error('Error ao cadastrar');
     }
   };
 
@@ -57,7 +56,6 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
   };
 
   useEffect(() => {
-
     setFavoriteState(favoriteState);
   }, [favoriteState]);
 
