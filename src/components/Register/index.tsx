@@ -57,7 +57,6 @@ const Register = ({ fetchTasks }: { fetchTasks: () => void }) => {
   };
 
   useEffect(() => {
-    console.log(favoriteState);
 
     setFavoriteState(favoriteState);
   }, [favoriteState]);

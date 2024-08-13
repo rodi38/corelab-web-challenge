@@ -16,8 +16,6 @@ const TasksPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isColorMenuOpen, setIsColorMenuOpen] = useState<string | null>(null);
 
-
-
   const handleDeleteClick = (task: ITask) => {
     setTaskToDelete(task);
     setIsModalOpen(true);
@@ -38,7 +36,7 @@ const TasksPage = () => {
 
   useEffect(() => {
     search ? fetchTasks({ title: search }) : fetchTasks();
-  }, [search]);
+  }, []);
 
   const handleFavoriteToggle = (id: string, newFavorite: boolean) => {
     setTasks((prevTasks) => prevTasks.map((task) => (task._id === id ? { ...task, isFavorite: newFavorite } : task)));
@@ -47,9 +45,6 @@ const TasksPage = () => {
   const fetchTasks = async (filter?: { title: string }) => {
     try {
       const payload = await getTasks(filter);
-
-      console.log(payload);
-
       setTasks(payload);
     } catch (error) {
       console.error('Erro ao buscar tarefas:', error);
@@ -93,7 +88,7 @@ const TasksPage = () => {
                 onUpdate={handleEdit}
                 setIsEditing={setIsEditing}
                 isColorMenuOpen={isColorMenuOpen}
-                setIsColorMenuOpen={setIsColorMenuOpen} 
+                setIsColorMenuOpen={setIsColorMenuOpen}
               >
                 <p className={styles.text}>{item.taskContent}</p>
               </Card>
@@ -112,8 +107,8 @@ const TasksPage = () => {
                 onDelete={() => handleDeleteClick(item)}
                 onUpdate={handleEdit}
                 setIsEditing={setIsEditing}
-                isColorMenuOpen={isColorMenuOpen}
-                setIsColorMenuOpen={setIsColorMenuOpen} 
+                isColorMenuOpen={isColorMenuOpen} // Passar como prop
+                setIsColorMenuOpen={setIsColorMenuOpen}
               >
                 <p className={styles.text}>{item.taskContent}</p>
               </Card>

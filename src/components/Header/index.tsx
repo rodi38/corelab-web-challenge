@@ -16,7 +16,6 @@ const Header = (props: IHeader) => {
   const [toggleMenuHeader, setToggleMenuHeader] = useState(true);
 
   const handlerToggleMenu = () => {
-    console.log(toggleMenuHeader);
 
     setToggleMenuHeader(!toggleMenuHeader);
 

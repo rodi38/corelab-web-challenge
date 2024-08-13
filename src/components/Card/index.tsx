@@ -26,7 +26,7 @@ interface ICard {
 
 const Card = (props: ICard) => {
   const [favoriteState, setFavoriteState] = useState<boolean | undefined>(false);
-  const [backgroundColor, setBackgroundColor] = useState<string>('');
+  const [backgroundColor, setBackgroundColor] = useState<string>('#FFFFFF');
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(props.data.title);
   const [taskContent, setTaskContent] = useState(props.data.taskContent);
@@ -112,7 +112,10 @@ const Card = (props: ICard) => {
             <ColorModal cardColor={backgroundColor} onColorPick={handleColorCard} />
           )}
 
-          <div className={styles.titleContainer} style={{ borderBottom: '1px solid' }}>
+          <div
+            className={styles.titleContainer}
+            style={{ borderBottom: `1px solid ${backgroundColor === '#FFFFFF' ? '#D9D9D9' : '#FFFFFF'}` }}
+          >
             {isEditing ? (
               <input
                 type="text"
